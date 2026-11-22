@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { CATEGORIES } from './words'
 import WordSearch from './WordSearch'
+import Citas from './Citas'
 
 const DURATIONS = [30, 60, 90, 0] // 0 = sin límite
 const STORAGE_KEY = 'charadas-biblicas:settings'
@@ -119,8 +120,18 @@ export default function App() {
     return <WordSearch onBack={() => setScreenName('home')} />
   }
 
+  if (screenName === 'citas') {
+    return <Citas onBack={() => setScreenName('home')} />
+  }
+
   if (screenName === 'home') {
-    return <Home onCharadas={() => setScreenName('menu')} onSopa={() => setScreenName('sopa')} />
+    return (
+      <Home
+        onCharadas={() => setScreenName('menu')}
+        onSopa={() => setScreenName('sopa')}
+        onCitas={() => setScreenName('citas')}
+      />
+    )
   }
 
   return (
@@ -134,7 +145,7 @@ export default function App() {
   )
 }
 
-function Home({ onCharadas, onSopa }) {
+function Home({ onCharadas, onSopa, onCitas }) {
   return (
     <main className="menu">
       <header>
@@ -156,6 +167,14 @@ function Home({ onCharadas, onSopa }) {
         <span>
           <b>Sopa de letras</b>
           <small>Generada al momento por categoría</small>
+        </span>
+      </button>
+
+      <button className="game-card" onClick={onCitas}>
+        <span className="emoji">📜</span>
+        <span>
+          <b>¿De qué libro es?</b>
+          <small>Sale una cita: mientras más cerca del libro, más puntos</small>
         </span>
       </button>
     </main>
