@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { CATEGORIES } from './words'
 import WordSearch from './WordSearch'
 import Citas from './Citas'
+import Rompecabezas from './Rompecabezas'
 
 const DURATIONS = [30, 60, 90, 0] // 0 = sin límite
 const STORAGE_KEY = 'charadas-biblicas:settings'
@@ -124,12 +125,17 @@ export default function App() {
     return <Citas onBack={() => setScreenName('home')} />
   }
 
+  if (screenName === 'puzzle') {
+    return <Rompecabezas onBack={() => setScreenName('home')} />
+  }
+
   if (screenName === 'home') {
     return (
       <Home
         onCharadas={() => setScreenName('menu')}
         onSopa={() => setScreenName('sopa')}
         onCitas={() => setScreenName('citas')}
+        onPuzzle={() => setScreenName('puzzle')}
       />
     )
   }
@@ -145,7 +151,7 @@ export default function App() {
   )
 }
 
-function Home({ onCharadas, onSopa, onCitas }) {
+function Home({ onCharadas, onSopa, onCitas, onPuzzle }) {
   return (
     <main className="menu">
       <header>
@@ -175,6 +181,14 @@ function Home({ onCharadas, onSopa, onCitas }) {
         <span>
           <b>¿De qué libro es?</b>
           <small>Sale una cita: mientras más cerca del libro, más puntos</small>
+        </span>
+      </button>
+
+      <button className="game-card" onClick={onPuzzle}>
+        <span className="emoji">🧩</span>
+        <span>
+          <b>Rompecabezas</b>
+          <small>Arma escenas bíblicas eligiendo el número de piezas</small>
         </span>
       </button>
     </main>

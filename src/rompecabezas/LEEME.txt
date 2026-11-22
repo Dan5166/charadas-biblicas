@@ -1,0 +1,4 @@
+Deja aquí las imágenes del rompecabezas (jpg, png, webp, avif o gif).
+Aparecen solas en el juego; el nombre del archivo es el título.
+Ejemplo: "Arca de Noé.jpg" se muestra como "Arca de Noé".
+Recomendado: imágenes de unos 1200 a 2000 píxeles de ancho para que carguen rápido.

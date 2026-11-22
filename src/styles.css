@@ -421,3 +421,105 @@ h2 { margin: 0 0 8px; font-size: 13px; text-transform: uppercase; letter-spacing
 .cit-review-head .cit-tone.mid { color: var(--gold); }
 .cit-review-head .cit-tone.bad { color: #ff8a8a; }
 .results .actions { margin-top: 8px; }
+
+/* ---------- Rompecabezas ---------- */
+.puz-empty { display: grid; gap: 8px; padding: 18px; border-radius: 16px; background: rgba(255,255,255,.08); text-align: center; }
+.puz-empty b { color: var(--gold); font-size: 18px; }
+.puz-empty p { margin: 0; color: var(--muted); }
+.puz-empty code { color: var(--text); background: rgba(0,0,0,.3); padding: 1px 6px; border-radius: 6px; }
+.puz-note { margin: 8px 0 0; color: var(--muted); font-size: 13px; }
+
+.puz-gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: 10px; }
+.puz-thumb {
+  display: flex; flex-direction: column; gap: 6px; padding: 6px; border-radius: 14px;
+  background: rgba(255,255,255,.08); border: 2px solid transparent; min-width: 0;
+}
+.puz-thumb img, .puz-dice { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 10px; display: block; }
+.puz-dice { display: flex; align-items: center; justify-content: center; font-size: 38px; background: rgba(0,0,0,.25); }
+.puz-thumb small { font-size: 12px; line-height: 1.25; overflow-wrap: anywhere; }
+.puz-thumb.on { border-color: var(--gold); background: rgba(255,209,102,.15); color: var(--gold); }
+.puz-thumb:active { transform: scale(.97); }
+
+.puz-overlay { background: rgba(10, 6, 30, .55); align-items: flex-end; z-index: 100000; }
+.puz-overlay .modal h1 { margin: 0; }
+
+/* Piezas con forma: tablero a un lado y montón al otro */
+.jig {
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: max(10px, env(safe-area-inset-top)) max(10px, env(safe-area-inset-right)) max(10px, env(safe-area-inset-bottom)) max(10px, env(safe-area-inset-left));
+  background: radial-gradient(circle at 50% 0%, var(--bg-2), var(--bg) 70%);
+}
+.jig-top { display: flex; align-items: center; gap: 8px; }
+.jig-top .exit { flex-shrink: 0; }
+.jig-stats { flex: 1; display: flex; justify-content: center; gap: 8px; font-weight: 800; font-size: 18px; font-variant-numeric: tabular-nums; }
+.jig-stats span { background: rgba(0,0,0,.35); padding: 4px 12px; border-radius: 999px; }
+.jig-tool { flex-shrink: 0; height: 40px; padding: 0 12px; border-radius: 999px; background: rgba(255,255,255,.1); border: 2px solid transparent; font-size: 15px; font-weight: 600; }
+.jig-tool.on { border-color: var(--gold); color: var(--gold); background: rgba(255,209,102,.15); }
+.jig-tool:disabled { opacity: .4; }
+.jig-tip { text-align: center; font-size: 13px; color: var(--gold); background: rgba(255,209,102,.12); padding: 6px 10px; border-radius: 10px; }
+@media (max-width: 420px) {
+  .jig-tool span { display: none; }
+  .jig-tool { width: 40px; padding: 0; }
+  .jig-stats { font-size: 16px; gap: 6px; }
+  .jig-stats span { padding: 4px 10px; }
+}
+.jig-area { position: relative; flex: 1; min-height: 0; touch-action: none; overflow: hidden; isolation: isolate; }
+.jig-board {
+  position: absolute;
+  border-radius: 4px;
+  background: rgba(0,0,0,.35);
+  box-shadow: inset 0 0 0 2px rgba(255,255,255,.12);
+  overflow: hidden;
+}
+.jig-ghost { width: 100%; height: 100%; object-fit: fill; opacity: .22; filter: grayscale(.4); pointer-events: none; user-select: none; }
+.jig-board.won { box-shadow: 0 0 0 3px var(--gold), 0 0 40px rgba(255,209,102,.35); }
+.jig-piece {
+  position: absolute;
+  pointer-events: none;
+  filter: drop-shadow(0 0 1px rgba(0,0,0,.9)) drop-shadow(0 3px 4px rgba(0,0,0,.45));
+}
+.jig-piece.dragging { filter: drop-shadow(0 0 1px rgba(0,0,0,.9)) drop-shadow(0 10px 14px rgba(0,0,0,.55)); }
+.jig-piece.placed { filter: drop-shadow(0 0 .5px rgba(0,0,0,.55)); }
+.jig-piece.won { filter: none; transition: filter .6s; }
+.jig-shape {
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  pointer-events: auto;
+  cursor: grab;
+  touch-action: none;
+}
+.jig-piece.dragging .jig-shape { cursor: grabbing; }
+.jig-piece.placed .jig-shape { cursor: default; }
+
+/* Ajustes del rompecabezas en celular */
+.puz-howto { margin: 0; color: var(--muted); font-size: 14px; text-align: center; }
+.puz-play { position: sticky; bottom: 0; z-index: 2; }
+.puz-menu .logo { font-size: 44px; }
+@media (max-height: 760px), (max-width: 420px) {
+  .puz-menu { gap: 14px; }
+  .puz-menu .logo { display: none; }
+  .puz-menu h1 { font-size: 28px; }
+  .puz-gallery { grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); gap: 8px; }
+}
+@media (max-height: 500px) {
+  .jig { gap: 4px; padding-top: max(6px, env(safe-area-inset-top)); padding-bottom: max(6px, env(safe-area-inset-bottom)); }
+  .jig-top .exit, .jig-tool { height: 34px; }
+  .jig-top .exit { width: 34px; font-size: 15px; }
+  .jig-stats { font-size: 15px; }
+  .jig-stats span { padding: 3px 10px; }
+}
+.puz-overlay .modal { max-height: 100%; overflow-y: auto; }
+@media (max-height: 500px) {
+  .puz-overlay { align-items: center; justify-content: flex-end; padding: 10px max(10px, env(safe-area-inset-right)) 10px 10px; background: transparent; }
+  .puz-overlay .modal { width: min(42%, 340px); padding: 16px; gap: 8px; }
+  .puz-overlay .modal .logo { display: none; }
+  .puz-overlay .modal h1 { font-size: 24px; }
+  .puz-overlay .modal .tagline { font-size: 14px; }
+  .puz-overlay .modal .actions { gap: 6px; }
+  .puz-overlay .modal .play { padding: 10px; font-size: 18px; }
+  .puz-overlay .modal .secondary { padding: 9px; font-size: 14px; }
+}
